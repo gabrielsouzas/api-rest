@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+// Chama o arquivo index.js da database, que configura a chamada dos models
+import "./src/database";
+
 import express from "express";
 import homeRoutes from "./src/routes/homeRoutes";
 

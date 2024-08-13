@@ -65,3 +65,34 @@ Este projeto é uma API REST desenvolvida para estudar como é feito o desenvolv
       'seeders-path': resolve(__dirname, 'src', 'database', 'seeds'),
     }
     ```
+
+## Banco de dados
+
+O banco de dados foi criado com o MySQL Workbench, caso possua a conta no Google Cloud com um servidor Linux remoto, crie uma nova conexão com o IP estático do servidor remoto, assim poderá criar a base de dados diretamente nele. Caso não tenha um servidor remoto, crie na conexão local.
+
+No MySQL Workbench crie um novo Schema com as seguintes configurações:
+
+![MySQL Schema](./documentation/mysqlschemacreation.png)
+
+O banco de dados será gerenciado através do sequelize, que é **...**
+
+Inatalações:
+
+```shell
+npm i sequelize mariadb
+npm i -D sequelize-cli
+```
+
+Para criar a primeira migration execute a linha de comando:
+
+```shell
+npx sequelize migration:create --name=alunos
+```
+
+Esso comando vai criar um arquivo na pasta database/migrations, conforme configuração prévia. Esse arquivo vai conter as configurações das tabelas do banco de dados.
+
+Para executar uma migration e fazer ela refletir no banco de dados real, execute:
+
+```shell
+npx sequelize db:migrate
+```

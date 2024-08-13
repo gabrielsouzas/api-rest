@@ -14,10 +14,15 @@ module.exports = {
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE,
-  dialectOptions: {
-    timezone: "America/Sao_Paulo",
+  dialect: "mariadb",
+
+  // Gerando erro porque a tabela timezones do mysql está vazia no windows
+  /*dialectOptions: {
+    timezone: "UTC", // Define o timezone como UTC
+    // timezone: "America/Sao_Paulo",
   },
-  timezone: "America/Sao_Paulo",
+  timezone: "UTC", // Define o timezone como UTC
+  // timezone: "America/Sao_Paulo",*/
 
   /* ALL  - Para gravar datas de alterações dos dados*/
   define: {
