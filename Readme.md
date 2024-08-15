@@ -102,3 +102,13 @@ Para deesfazer uma migração execute:
 ```shell
 npx sequelize db:migrate:undo
 ```
+
+## Requisições
+
+- **INDEX** -> Lista todos os usuários: `GET`
+- **STORE/CREATE** -> Cria um novo usuário: `POST`
+- **DELETE** -> Apaga um usuário: `DELETE`
+- **SHOW** -> Mostra um usuário: `GET`
+- **UPDATE** -> Atualiza um usuário: `PATCH`(_só um valor_) ou `PUT`(_objeto inteiro_)
+
+Se o seu controller faz mais do que esse métodos, é possível que você esteja fazendo mais do que o padrão nesse controller e deveria criar outro controller para esses métodos extras.
