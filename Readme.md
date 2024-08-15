@@ -96,3 +96,9 @@ Para executar uma migration e fazer ela refletir no banco de dados real, execute
 ```shell
 npx sequelize db:migrate
 ```
+
+Para deesfazer uma migração execute:
+
+```shell
+npx sequelize db:migrate:undo
+```

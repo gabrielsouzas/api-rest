@@ -1,3 +1,5 @@
+// Arquivo que configura a chamada dos models
+
 import { Sequelize } from "sequelize";
 import databaseConfig from "../config/database";
 import Aluno from "../models/Aluno";
