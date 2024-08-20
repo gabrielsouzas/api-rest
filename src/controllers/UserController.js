@@ -41,7 +41,6 @@ class UserController {
   // Update
   async update(req, res) {
     try {
-      console.log(req.params.id, req.userId);
       const user = await User.findByPk(req.userId);
 
       if (!user) {

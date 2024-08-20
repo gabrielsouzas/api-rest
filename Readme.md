@@ -83,6 +83,8 @@ npm i sequelize mariadb
 npm i -D sequelize-cli
 ```
 
+### Migrations
+
 Para criar a primeira migration execute a linha de comando:
 
 ```shell
@@ -103,6 +105,30 @@ Para deesfazer uma migração execute:
 npx sequelize db:migrate:undo
 ```
 
+Em um sistema real diversas migrations serão criadas, porque a cada alteração necessária na tabela deverá ser criada uma migration para tal. Por isso também é importante dar atenção aos nomes de cada migration, para não criar nomes muito generalistas e correr o risco de não conseguir identificar uma migration posteriormente.
+
+Por exemplo, a migration a seguir foi criada para alterar o _email_ do `Aluno` para `unique`:
+
+```shell
+npx sequelize migration:create --name=mudar-email-aluno-unique
+```
+
+### Seeds
+
+Essas seed podem ser usadas para inserir dados ficticios no banco de dados para testes.
+
+Para criar uma nova seed no caminho configurado no sequelize, execute:
+
+```shell
+npx sequelize seed:generate --name criar-usuarios
+```
+
+Para inserir os dados da seed no banco de dados:
+
+```shell
+npx sequelize db:seed:all
+```
+
 ## Requisições
 
 - **INDEX** -> Lista todos os usuários: `GET`
@@ -112,3 +138,14 @@ npx sequelize db:migrate:undo
 - **UPDATE** -> Atualiza um usuário: `PATCH`(_só um valor_) ou `PUT`(_objeto inteiro_)
 
 Se o seu controller faz mais do que esse métodos, é possível que você esteja fazendo mais do que o padrão nesse controller e deveria criar outro controller para esses métodos extras.
+
+## Middlewares
+
+### loginRequired
+
+Essa rota de middleware vai fazer a interceptação das requisições e verificar se o token de autenticação está sendo transmitido pelo cliente.
+
+Em uma requisição HTTP o token de autenticação pode ser passado de duas maneisa:
+
+_Auth_ - Basta passar o token;
+_Header_ - É necessário transmitir através de uma chave `authorization` com o valor `Bearer {TOKEN}`;
