@@ -149,3 +149,15 @@ Em uma requisição HTTP o token de autenticação pode ser passado de duas mane
 
 _Auth_ - Basta passar o token;
 _Header_ - É necessário transmitir através de uma chave `authorization` com o valor `Bearer {TOKEN}`;
+
+## Upload de arquivos
+
+Para fazer upload da foto do aluno foi utilizada a biblioteca `multer`:
+
+```shell
+npm i multer
+```
+
+Foi criada uma rota específica para receber qualquer tipo de arquivo `_base_url/fotos/`.
+
+Na pasta config foi criado o arquivo de configuração do multer:

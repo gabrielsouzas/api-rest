@@ -1,4 +1,6 @@
+/* eslint-disable no-undef */
 import dotenv from "dotenv";
+import { resolve } from "path";
 dotenv.config();
 
 // Chama o arquivo index.js da database, que configura a chamada dos models
@@ -9,6 +11,7 @@ import homeRoutes from "./src/routes/homeRoutes";
 import userRoutes from "./src/routes/userRoutes";
 import tokenRoutes from "./src/routes/tokenRoutes";
 import alunoRoutes from "./src/routes/alunoRoutes";
+import fotoRoutes from "./src/routes/fotoRoutes";
 
 class App {
   constructor() {
@@ -21,6 +24,9 @@ class App {
     // Neste caso app seria o express
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+
+    // Configuração da pasta de arquivos estáticos, para poder acessar as fotos salvas em uploads
+    this.app.use(express.static(resolve(__dirname, "uploads")));
   }
 
   routes() {
@@ -28,6 +34,7 @@ class App {
     this.app.use("/users/", userRoutes);
     this.app.use("/tokens/", tokenRoutes);
     this.app.use("/alunos/", alunoRoutes);
+    this.app.use("/fotos/", fotoRoutes);
   }
 }
 

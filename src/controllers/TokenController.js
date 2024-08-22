@@ -39,7 +39,9 @@ class TokenController {
       return res.json({ token: token });
     } catch (e) {
       return res.status(400).json({
-        errors: e.errors.map((err) => err.message),
+        errors: Array.isArray(e.errors)
+          ? e.errors.map((err) => err.message)
+          : [e.message || "An unknown error occurred"],
       });
     }
   }
