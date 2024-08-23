@@ -161,3 +161,181 @@ npm i multer
 Foi criada uma rota específica para receber qualquer tipo de arquivo `_base_url/fotos/`.
 
 Na pasta config foi criado o arquivo de configuração do multer:
+
+## Deploy
+
+### Preparação
+
+Como a API foi desenvolvida usando `import/export` com o _sucrase_, o script de build a ser criado será pelo sucrase.
+
+Onde:
+
+- srcDir - Pasta source
+- outDir - Pasta de distribuição
+
+Explicação:
+
+- O sucrase vai rodar em todas as pastas que estão na pasta src e vai extrair ou transpilar (-d) para a pasta dist.
+
+`package.json`
+
+```json
+"scripts": {
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
+    "node": "dist/server.js"
+  },
+```
+
+Execute a build:
+
+```shell
+npm run build
+```
+
+### Instalação servidor
+
+- Alterar a url da aplicação (detalhado na aula)
+
+Execute a build
+
+npm run build
+npm start
+
+Teste para ver se está acessível
+
+Inicie o git dentro da pasta
+
+**NO SEU COMPUTADOR**
+
+```shell
+git init
+git config user.name 'Seu nome'
+git config user.email 'Seu e-mail'
+git add .
+git commit -am 'Iniciando a aplicação'
+```
+
+**NO SERVIDOR**
+
+Criando as pastas
+
+```shell
+mkdir api
+mkdir repo-api
+
+```
+
+Criando o repositório
+
+```shell
+cd repo-api
+git init --bare
+cd ~
+```
+
+Adicionando o repositório na pasta api
+
+```shell
+cd api
+git init
+git config user.name 'Seu nome'
+git config user.email 'Seu e-mail'
+git add .
+git commit -am 'Inicial'
+git remote add origin /home/seu_usuario/repo-api
+cd ~
+```
+
+**NO SEU COMPUTADOR**
+
+```shell
+git remote add origin ip_do_servidor:repo-api
+git push origin master -u
+```
+
+**NO SERVIDOR (pasta api)**
+
+```shell
+git pull origin master
+mkdir uploads
+cd uploads
+mkdir images
+cd ~
+```
+
+**IMPORTANTE:**
+
+O arquivo .env precisa ficar na raíz da sua aplicação
+
+(pasta inicial)
+
+```shell
+nano .env
+```
+
+Cole o seguinte no arquivo .env
+
+```env
+DATABASE=escola
+DATABASE_HOST=localhost
+DATABASE_PORT=3306
+DATABASE_USERNAME=root
+DATABASE_PASSWORD=???????????????
+
+TOKEN_SECRET=???????????????
+TOKEN_EXPIRATION=7d
+
+APP_PORT=3001
+APP_URL=???????????????
+```
+
+Substitua `???????????????` para suas configs
+
+Pressione CTRL + O, ENTER, CTRL + X
+
+Instale os pacotes
+
+```shell
+cd ~
+npm i
+```
+
+### Ativando a aplicação no PM2
+
+```shell
+pm2 start /home/seu_usuario/api/dist/server.js --name=api
+```
+
+> Off (caso aconteça erros, remova o dotenv de app.js) e use o comando
+
+```shell
+pm2 start /home/seu_usuario/api/dist/server.js --name=api --node-args="--require 'dotenv/config'"
+```
+
+Para listar
+
+```shell
+pm2 ls
+```
+
+**PARA CONFIGURAR O NGINX, USE O OUTRO ARQUIVO DESTA AULA**
+
+Depois
+
+```shell
+sudo systemctl stop nginx
+```
+
+### Instalando SSL
+
+```shell
+sudo certbot certonly --standalone -d seu.dominio.com.br
+```
+
+Depois
+
+```shell
+sudo systemctl start nginx
+```
+
+Configure o insomnia
