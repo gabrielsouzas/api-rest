@@ -192,6 +192,60 @@ Execute a build:
 npm run build
 ```
 
+### Politica de CORS
+
+Para implementar o CORS na API foram utilizados os pacotes:
+
+```shell
+npm i cors helmet
+```
+
+Na pasta `src/app.js` importe o cors e o helmet:
+
+```js
+import cors from "cors";
+import helmet from "helmet";
+```
+
+No me´todo de `middleware`:
+
+```js
+this.app.use(cors());
+this.app.use(helmet());
+```
+
+Configuração de acesso.
+
+Em `app.js` insira os dados do seu dominio na whitelist (localhost para app local em dev):
+
+```js
+const whitelist = [
+  "https://seudominiorodandoaaplicacaoreact.com.br",
+  "http://localhost:3000",
+];
+```
+
+Configure as opções:
+
+```js
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Se encontrar a origin (end que está tentando acessar) na whitelist, ou se não existir origin (insomnia), passa
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+```
+
+Passe co o parametro as novas configurações:
+
+```js
+this.app.use(cors(corsOptions));
+```
+
 ### Instalação servidor
 
 - Alterar a url da aplicação (detalhado na aula)
@@ -337,5 +391,3 @@ Depois
 ```shell
 sudo systemctl start nginx
 ```
-
-Configure o insomnia
