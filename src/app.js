@@ -44,9 +44,24 @@ class App {
   middlewares() {
     // Neste caso app seria o express
 
+    // this.app.use((req, res, next) => {
+    //   res.setHeader(
+    //     "Content-Security-Policy",
+    //     "default-src 'self'; base-uri 'self'; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'self'; img-src 'self' http://localhost:3000 data:; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https: 'unsafe-inline'; upgrade-insecure-requests"
+    //   );
+    //   next();
+    // });
+
     // Configurações politica de CORS, as opções são opcionais
     this.app.use(cors(corsOptions));
     this.app.use(helmet());
+
+    // this.app.use(
+    //   helmet({
+    //     // crossOriginResourcePolicy: false,
+    //     crossOriginEmbedderPolicy: false,
+    //   })
+    // );
 
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
